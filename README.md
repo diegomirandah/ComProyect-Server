@@ -48,7 +48,7 @@ Para configurar el servidor se edita el run de Flask en el archivo run.py
 app.run(host= '0.0.0.0',debug=False)
 ```
 
-Configurar base de datos
+Configurar base de datos mongo.py
 ```
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 ```
