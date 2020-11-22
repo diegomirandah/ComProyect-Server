@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Graficos de comunicación</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4 border-secondary ">
+                <div class="card-header">Actividad</div>
+                <div class="card-body text-secondary">
+                    <h5 class="card-title">Nombre: {{activity['name']}}</h5>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h6 class="card-subtitle mb-2 text-muted">Información</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Id Actividad: {{activity['_id']}}</li>
+                                <li class="list-group-item">Tiempo (Minutos): {{activity['durationOfActivity']}}</li>
+                                <li class="list-group-item">Hora de Inicio: {{activity['startRecording']}}</li>
+                                <li class="list-group-item">Hora de Termino: {{activity['endRecording']}}</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <h6 class="card-subtitle mb-2 text-muted">Grabaciones</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Audio: <a href="/{{activity['audioFile']}}">{{activity['audioFile']}}</a></li>
+                                <li class="list-group-item">Video1: <a href="/{{activity['video1File']}}">{{activity['video1File']}}</a></li>
+                                <li class="list-group-item">Video2: <a href="/{{activity['video2File']}}">{{activity['video2File']}}</a></li>
+                                <li class="list-group-item">Video3: <a href="/{{activity['video3File']}}">{{activity['video3File']}}</a></li>
+                                <li class="list-group-item">Video4: <a href="/{{activity['video4File']}}">{{activity['video4File']}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card mb-4 border-secondary ">
+                <div class="card-header">Post-procesamiento</div>
+                <input id="actId" name="actId" type="hidden" value="{{activity['_id']}}">
+                <input id="video1" name="video1" type="hidden" value="{{activity['video1File']}}">
+                <input id="video2" name="video2" type="hidden" value="{{activity['video2File']}}">
+                <input id="video3" name="video3" type="hidden" value="{{activity['video3File']}}">
+                <input id="video4" name="video4" type="hidden" value="{{activity['video4File']}}">
+                <input id="video1output" name="video1output" type="hidden" value="{{activity['videoout1File']}}">
+                <input id="video2output" name="video2output" type="hidden" value="{{activity['videoout2File']}}">
+                <input id="video3output" name="video3output" type="hidden" value="{{activity['videoout3File']}}">
+                <input id="video4output" name="video4output" type="hidden" value="{{activity['videoout4File']}}">
+                <div class="card-body text-secondary">
+                    <p>Utilizar OpenPose para obtener puntos claves de las posturas.</p>
+                    <input id="processOpenPose" class="btn btn-outline-primary" type="submit" value="Obtener puntos claves">
+                </div>
+                <div class="card-body text-secondary">
+                    <p>Procesar puntos claves para definir la postura.</p>
+                    <input id="processPostures" class="btn btn-outline-primary" type="submit" value="Obtener Posturas">
+                </div>
+                <div class="card-body text-secondary">
+                    <div class="progress">
+                        <div id="progressBar" class="progress-bar progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card mb-4 border-secondary ">
+                <div class="card-header">Grafo</div>
+                <div class="card-body text-secondary">
+                    <div id="GraphChart">
+                        <canvas id="GraphChartCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card mb-4 border-secondary ">
+                <div class="card-header">Gráfico de Violin </div>
+                <div class="card-body text-secondary">
+                    <div id="ViolinhChart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card mb-4 border-secondary ">
+                <div class="card-header">Gráfico de Densidad</div>
+                <div class="card-body text-secondary">
+                    <div id="DensityChart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card mb-4 border-secondary ">
+                <div class="card-header">Gráfico de Barra Radial</div>
+                <div class="card-body text-secondary">
+                    <div id="RadialBarChart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-4 border-secondary ">
+                <div class="card-header">Gráfico de Gantt</div>
+                <div class="card-body text-secondary">
+                    <div id="TimeLineChart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<script>
+    var dataUrl = "{{ url_for('data', act_id=activity['_id']) }}";
+</script>
+
+<!--<script src="{{ url_for('static', filename='js/pieChart.js') }}"></script>
+<script src="{{ url_for('static', filename='js/barChart.js') }}"></script>
+<script src="{{ url_for('static', filename='js/updateChart.js') }}"></script>-->
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='js/activitie.js') }}"></script>
+<script src="{{ url_for('static', filename='js/TimeLineChart.js') }}"></script>
+<script src="{{ url_for('static', filename='js/GraphChart.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ViolinChart.js') }}"></script>
+<script src="{{ url_for('static', filename='js/densityChart.js') }}"></script>
+<script src="{{ url_for('static', filename='js/RadialBarChart.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock content %}

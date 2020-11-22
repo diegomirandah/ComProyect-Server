@@ -1,0 +1,12 @@
+.vscode/
+__pycache__/
+audio/__pycache__/
+audio/audio_data.py
+audio/vokaturi/
+audio/*.wav
+db/*
+models/*
+dataset/*/*.avi
+dataset/*.avi
+video/__pycache__
+video/*.avi
