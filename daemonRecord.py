@@ -12,12 +12,12 @@ from mongo import mongo
 from bson.objectid import ObjectId
 mg = mongo()
 
-ip_server = "192.168.1.128"
-portAudio = 5000
-port1 = 5001
-port2 = 5002
-port3 = 5003
-port4 = 5004
+ip_server = "192.168.1.128" # IP DEL SERIVIDOR
+portAudio = 5000 # PUERTO DE AUDIO
+port1 = 5001 # PUERTO DE VIDEO 1
+port2 = 5002 # PUERTO DE VIDEO 2
+port3 = 5003 # PUERTO DE VIDEO 3
+port4 = 5004 # PUERTO DE VIDEO 4
 
 # ------------------ terrible daemon code for windows -------------------
 if __name__ == '__main__':
