@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1>Graficos de comunicación</h1>
+    <h2>Manual de Usuario</h2>
+    <div class="card mb-4 border-secondary ">
+        <div class="card-header">Introducción</div>
+        <div class="card-body text-secondary">
+            <p>Dentro de una actividad colaborativa existe una gran cantidad de datos que para los participantes pasan desapercibidos, pero estos definen y condicionan la comunicación. La comunicación no es solo verbal, gran parte de la información que se comunica pasa por modalidades no verbales, como posturas, gestos, tonos de voz, intervenciones, pausas, silencios, etc.</p>
+
+            <p>Uno de los desafíos de analizar el aprendizaje, es la recolección, clasificación y reporte de la información capturada de una actividad colaborativa, por lo que este proyecto busca abordar este problema y plantear una solución a la incorporación de datos de audio y vídeo para obtener características de la comunicación dada en un contexto colaborativo. </p>
+                
+            <p>Para realizar esto se a utilizado un micrófono direccional y cámaras para capturar el audio y vídeo de una actividad, luego se utilizan maquinas de aprendizaje para detectar patrones del comportamiento no verbal de los participantes, y finalmente mostrar visualizaciones de la información al docente o usuario del sistema.</p>
+        </div>
+    </div>
+    <div class="card mb-4 border-secondary ">
+        <div class="card-header">Requisitos</div>
+        <div class="card-body text-secondary">
+            <lu>
+                <li>Tarjeta de video compatible con CUDA 10.0</li>
+                <li>Raspberry Pi 4 modelo b o superior (<a href="https://www.raspberrypi.org/products/raspberry-pi-4-model-b/?resellerType=home">ver</a>)</li>
+                <li>ReSpeaker 4-Mic Array (<a href="https://www.seeedstudio.com/ReSpeaker-4-Mic-Array-for-Raspberry-Pi-p-2941.html">ver</a>)</li>
+                <li>4 cámaras usb v4l2 (<a href="http://www.webcamerausb.com/elp-usb-camera-module-1080p-hd-industrial-usb20-camera-with-autofocus-lens-p-86.html">ver</a>)</li>
+                <li>Grove-Button usa cables 4-Pines (<a href="https://wiki.seeedstudio.com/Grove-Button/">ver</a>)</li>
+                <li>Tarjeta microSD mínimo 8 GB con lector UHS-I Clase 3</li>
+            </lu>
+        </div>
+    </div>
+    <div class="card mb-4 border-secondary ">
+        <div class="card-header">Instalación</div>
+        <div class="card-body text-secondary">
+            <div class="card mb-4 border-secondary ">
+                <div class="card-header">Intalar hardware</div>
+                <div class="card-body text-secondary">
+                    <p>A continuacion se describen los pasos para instalar hardware en el Raspberry Pi 4.</p>
+                    <lu>
+                        <li>Conectamos el Respeaker a la Raspberry Pi, insertamos la microSD y conectamos el Grove Button al puerto GPIO-12 del Respeaker</li>
+                        <li>Conectar las 4 camaras usb a los 4 puertos usb del Raspberry Pi</li>
+                    </lu>
+                </div>
+            </div>
+            <div class="card mb-4 border-secondary ">
+                <div class="card-header">Intalar software</div>
+                <div class="card-body text-secondary">
+                    <p>A continuacion se describen los pasos para instalar el software en el Raspberry Pi 4.</p>
+                    <lu>
+                        <li>Intalar Raspberry Pi OS  (32bit) en la tarjeta microSD desde un computador con intenet. (<a href="https://www.raspberrypi.org/software/">ver</a>)</li>
+                        <li>Insertar tarjeta en Raspberry Pi 4 y configure la red de internet.</li>
+                        <li>Intalar drivers de Respeaker con los siguientes comandos</li>
+    <pre>
+        <code>git clone https://github.com/respeaker/seeed-voicecard.git
+        cd seeed-voicecard
+        sudo ./install.sh
+        reboot</code></pre>
+                        <li>Clonar el repositorio de la Solución, seguir la instruccione de Readme.md (<a href="https://github.com/diegomirandah/ComProyect-RaspberryPi">ver</a>)</li>
+    <pre>
+        <code>git clone https://github.com/diegomirandah/ComProyect-RaspberryPi.git
+        pip3 install -r requirements.txt
+        gcc c/videoStreaming.c -o c/videoStreaming</code></pre>
+                    </lu>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4 border-secondary ">
+        <div class="card-header">Uso</div>
+        <div class="card-body text-secondary">
+            <div class="card mb-4 border-secondary ">
+                <div class="card-header">Grabar una Actividad</div>
+                <div class="card-body text-secondary">
+                    
+                </div>
+            </div>
+            <div class="card mb-4 border-secondary ">
+                <div class="card-header">Procesar una Actividad</div>
+                <div class="card-body text-secondary">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

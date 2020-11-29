@@ -7,7 +7,7 @@ import math
 from datetime import datetime
 from datetime import timedelta
 from mongo import mongo
-#from service import service
+import argparse
 from bson.objectid import ObjectId
 import copy
 from activity import activity
@@ -15,7 +15,21 @@ import os
 import json
 import subprocess
 
-mg = mongo()
+# Flags
+parser = argparse.ArgumentParser()
+parser.add_argument("--host", default="0.0.0.0", help="Host server flask")
+parser.add_argument("--port", default=80, help="Ports server flask")
+parser.add_argument("--mode", default=False, help="Debug mode server flask")
+parser.add_argument("--host_db", default="localhost", help="Host mongodb")
+parser.add_argument("--port_db", default=27017, help="Port mongodb")
+parser.add_argument("--port_audio", default=5000, help="Port Audio")
+parser.add_argument("--port_video1", default=5001, help="Port video1")
+parser.add_argument("--port_video2", default=5002, help="Port video2")
+parser.add_argument("--port_video3", default=5003, help="Port video3")
+parser.add_argument("--port_video4", default=5004, help="Port video4")
+args = parser.parse_known_args()
+
+mg = mongo(host=args[0].host)
 #s = service(mg)
 
 app = Flask(__name__)
@@ -161,7 +175,7 @@ def data(act_id):
 		postures.append(user)
 	data["postures"] = postures
 
-	""" #OBtener valores keypoints
+	#OBtener valores keypoints
 	keypoints = []
 	for i in range(1,5):
 		query2 = { "idact": ObjectId(act_id), "iduser": str(i)}
@@ -181,7 +195,7 @@ def data(act_id):
 				"time": keypoint["time"],
 			})
 		keypoints.append(user)
-	data["Keypoints"] = keypoints """
+	data["Keypoints"] = keypoints 
 	
 	# 
 	activitie["id"] = act_id
@@ -323,6 +337,11 @@ def index():
 	acts = mg.find_activities()
 	return render_template('index.html', activities = enumerate(acts))
 
+# Pagina de inicio
+@app.route('/info')
+def info():
+	return render_template('info.html')
+
 # Vista de una actividad
 @app.route('/act/<act_id>')
 def act(act_id):
@@ -330,4 +349,4 @@ def act(act_id):
 	return render_template('dashboard.html', activity = act)
 		
 if __name__ == '__main__':
-	  app.run(host= '0.0.0.0',debug=False)
+	  app.run(host= args[0].host,debug=args[0].mode, port = args[0].port)
