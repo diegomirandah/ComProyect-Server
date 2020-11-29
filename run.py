@@ -29,8 +29,7 @@ parser.add_argument("--port_video3", default=5003, help="Port video3")
 parser.add_argument("--port_video4", default=5004, help="Port video4")
 args = parser.parse_known_args()
 
-mg = mongo(host=args[0].host)
-#s = service(mg)
+mg = mongo(host=args[0].host_db, port=args[0].port_db)
 
 app = Flask(__name__)
 
