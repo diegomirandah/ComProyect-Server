@@ -27,7 +27,7 @@
         </div>
     </div>
     <div class="card mb-4 border-secondary ">
-        <div class="card-header">Instalación</div>
+        <div class="card-header">Instalación dispositivo de Captura y transmisión</div>
         <div class="card-body text-secondary">
             <div class="card mb-4 border-secondary ">
                 <div class="card-header">Intalar hardware</div>
@@ -66,15 +66,62 @@
         <div class="card-header">Uso</div>
         <div class="card-body text-secondary">
             <div class="card mb-4 border-secondary ">
-                <div class="card-header">Grabar una Actividad</div>
+                <div class="card-header">Grabar Actividad</div>
                 <div class="card-body text-secondary">
-                    
+                    <p>Requisitos</p>
+                    <lu>
+                        <li>Configurar previamente el dispositivo de captura de datos a la red de internet.</li>
+                        <li>Configurar la ip y puertos del servidor.</li>
+                    </lu>
+                    <p>Instrucciones para iniciar la transmisión de datos desde el dispositivo al servidor.</p>
+                    <lu>
+                        <li>Ejecutar en cmd:</li>
+    <pre>
+        <code>python3 service.py</code></pre>
+                        <li>Puede ubicar el dispositivo en el centro de los participantes y asegurar que las cámaras están apuntando a los participantes.</li>
+                        <li>Luego inicie la transmisión de datos pulsando el botón.</li>
+                    </lu>
+                    <p>Instrucciones para capturar datos desde un servidor.</p>
+                    <lu>
+                        <li>En la página de inicio presione “Grabar nueva Actividad”.</li>
+                        <li>Ingrese el Nombre de la Actividad y la duración en minutos.</li>
+                        <li>Luego presionar “Crear Actividad”, esto configura la nueva actividad en el sistema y se prepara para iniciar la grabación.</li>
+                        <li>Cuando da comienzo a la actividad de los participantes, presionar “Iniciar Grabación”, este inicia el servicio que captura los datos enviado por el dispositivo de captura.</li>
+                        <li>Finalizado el tiempo de grabación, el servicio dejará de capturar los datos.</li>
+                    </lu>
+                    <p>Rutas Alternativas:</p>
+                    <lu>
+                        <li>Si iniciada una grabación surgen problemas se puede detener con el botón “Detener Grabación”, lo cual descarta la grabación previa.</li>
+                    </lu>
                 </div>
             </div>
             <div class="card mb-4 border-secondary ">
-                <div class="card-header">Procesar una Actividad</div>
+                <div class="card-header">Procesamiento Posturas</div>
                 <div class="card-body text-secondary">
-                    
+                    <p>Requisitos</p>
+                    <lu>
+                        <li>Grabar una actividad.</li>
+                    </lu>
+                    <p>Instrucciones para procesar una actividad y generar datos de puntos claves y posturas.</p>
+                    <lu>
+                        <li>En la página de inicio puede buscar la actividad y luego presionar “detalle”.</li>
+                        <li>Luego presionar “Obtener puntos claves”, y esperar hasta que el sistema termine. Esto puede tardar bastante tiempo.</li>
+                        <li>Finalizado el paso anterior ya se puede obtener las posturas, por lo que presione “Obtener Posturas”, Esta acción puede tardar bastante tiempo.</li>
+                    </lu>
+                </div>
+            </div>
+            <div class="card mb-4 border-secondary ">
+                <div class="card-header">Visualización de datos</div>
+                <div class="card-body text-secondary">
+                    <p>Requisitos</p>
+                    <lu>
+                        <li>Tener una actividad con las posturas generadas.</li>
+                    </lu>
+                    <p>Instrucciones para visualizar datos de actividad</p>
+                    <lu>
+                        <li>En la página de inicio puede buscar la actividad y luego presionar “detalle”.</li>
+                        <li>La página cargará y podrá visualizar los gráficos sobre participación y posturas de los integrantes.</li>
+                    </lu>
                 </div>
             </div>
         </div>
