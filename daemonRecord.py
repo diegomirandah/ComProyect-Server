@@ -47,7 +47,7 @@ if __name__ == '__main__':
 		else:
 			p = subprocess.Popen([sys.executable, ProcessFileName, "child", args], stdout = PIPE, stderr = PIPE)
 			pid = p.pid
-			os.makedirs(os.path.dirname(filename), exist_ok=True)
+			os.makedirs(os.path.dirname(pidFile), exist_ok=True)
 
 		print("Service", pidname, pid, "started", flush=True)
 		# create processfile to signify process has started
