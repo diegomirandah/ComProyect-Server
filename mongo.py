@@ -17,10 +17,10 @@ class mongo:
 		self.openpose = self.mydb["openpose_data"]
 		self.posture_close = self.mydb["posture_close"]
 
-	def insert_one(seft,collection,data):
+	def insert_one(self,collection,data):
 		return self.mydb[collection].insert_one(data).inserted_id
 
-	def insert_many(seft,collection,list_data):
+	def insert_many(self,collection,list_data):
 		return self.mydb[collection].insert_many(list_data)
 	
 	def update_one(self,collection,id,newvalues):

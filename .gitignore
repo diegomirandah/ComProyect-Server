@@ -10,3 +10,4 @@ dataset/*/*.avi
 dataset/*.avi
 video/__pycache__
 video/*.avi
+config.json

@@ -8,6 +8,12 @@ from tensorflow.keras.models import Sequential, load_model
 import numpy as np
 import tensorflow as tf
 import math
+import os
+
+config = None:
+if os.path.exists(os.path.join(os.getcwd(), "config.json")):
+	f = open(os.path.join(os.getcwd(), "config.json"),) 
+	config = json.load(f)
 
 # Flags
 parser = argparse.ArgumentParser()
@@ -92,6 +98,6 @@ class processPosture():
 
 
 if __name__ == '__main__':
-	mg = mongo()
+	mg = mongo(host=config["host_db"], port=config["port_db"])
 	ooo = processPosture(mg = mg, modelpath = args[0].modelpath)
 	ooo.processData(idact = args[0].idAct, iduser = args[0].idUser)

@@ -10,6 +10,11 @@ import datetime
 from bson.objectid import ObjectId
 import numpy as np
 
+config = None:
+if os.path.exists(os.path.join(os.getcwd(), "config.json")):
+	f = open(os.path.join(os.getcwd(), "config.json"),) 
+	config = json.load(f)
+
 # Import Openpose (Windows/Ubuntu/OSX)
 dir_path = os.path.dirname(os.path.realpath(__file__))
 try:
@@ -248,7 +253,7 @@ if __name__ == '__main__':
 	mg = None
 	ooo = None
 	if args[0].mg:
-		mg = mongo()
+		mg = mongo(host=config["host_db"], port=config["port_db"])
 		ooo = processOpenPose(mg = mg, mode = args[0].mode)
 	else:
 		ooo = processOpenPose(mode = args[0].mode)

@@ -19,6 +19,7 @@ import subprocess
 parser = argparse.ArgumentParser()
 parser.add_argument("--host", default="0.0.0.0", help="Host server flask")
 parser.add_argument("--port", default=80, help="Ports server flask")
+parser.add_argument("--interpreter", default="python", help="python or python3")
 parser.add_argument("--mode", default=False, help="Debug mode server flask")
 parser.add_argument("--host_db", default="localhost", help="Host mongodb")
 parser.add_argument("--port_db", default=27017, help="Port mongodb")
@@ -29,7 +30,24 @@ parser.add_argument("--port_video3", default=5003, help="Port video3")
 parser.add_argument("--port_video4", default=5004, help="Port video4")
 args = parser.parse_known_args()
 
-mg = mongo(host=args[0].host_db, port=args[0].port_db)
+config = {
+	"host":  args[0].host,
+	"port": args[0].port,
+	"interpreter": args[0].interpreter,
+	"mode": args[0].mode,
+	"host_db": args[0].host_db,
+	"port_db": args[0].port_db,
+	"port_audio": args[0].port_audio,
+	"port_video1": args[0].port_video1,
+	"port_video2": args[0].port_video2,
+	"port_video3": args[0].port_video3,
+	"port_video4": args[0].port_video4,
+}
+with open(os.path.join(os.getcwd(), "config.json"), 'w') as file:
+    json.dump(config, file)
+
+mg = mongo(host=config["host_db"], port=config["port_db"])
+
 
 app = Flask(__name__)
 
@@ -252,7 +270,7 @@ def new_activity_start():
 	if request.method == 'POST':
 		data_act = request.form['data_act']
 		print(data_act)
-		comand = ["python","./daemonRecord.py","start",data_act]
+		comand = [args[0].interpreter,"./daemonRecord.py","start",data_act]
 		code, out, err = run(comand)
 		mensaje = {
 			"out": out,
@@ -267,7 +285,7 @@ def new_activity_start():
 def new_activity_stop():
 	if request.method == 'POST':
 		data_act = request.form['data_act']
-		comand = ["python","./daemonRecord.py","stop",data_act]
+		comand = [args[0].interpreter,"./daemonRecord.py","stop",data_act]
 		code, out, err = run(comand)
 		mensaje = {
 			"out": out,
@@ -281,7 +299,7 @@ def new_activity_stop():
 @app.route('/new_activity/end', methods=['POST'])
 def new_activity_end():
 	if request.method == 'POST':
-		comand = ["python","./daemonRecord.py","end"]
+		comand = [args[0].interpreter,"./daemonRecord.py","end"]
 		code, out, err = run(comand)
 		mensaje = {
 			"out": out,
@@ -296,7 +314,8 @@ def new_activity_end():
 def new_activity_test():
 	if request.method == 'POST':
 		data_act = request.form['data_act']
-		comand = ["python","./daemonRecord.py","child",data_act]
+		print(data_act)
+		comand = [args[0].interpreter,"./daemonRecord.py","child",data_act]
 		subprocess.run(comand)
 		return jsonify("testing")
 	abort(404, description="Resource not found")
@@ -306,7 +325,7 @@ def new_activity_test():
 def processVideo():
 	if request.method == 'POST':
 		comand = [
-			"python",
+			args[0].interpreter,
 			"./processOpenPose.py",
 			"--input=" + str(request.form['input']), 
 			"--output=" + str(request.form['output']),
@@ -322,7 +341,7 @@ def processVideo():
 def processPostures():
 	if request.method == 'POST':
 		comand = [
-			"python",
+			args[0].interpreter,
 			"./processPostures.py",
 			"--idAct="+ str(request.form['act_id']),
 			"--idUser="+ str(request.form['user_id'])]
@@ -348,4 +367,4 @@ def act(act_id):
 	return render_template('dashboard.html', activity = act)
 		
 if __name__ == '__main__':
-	  app.run(host= args[0].host,debug=args[0].mode, port = args[0].port)
+	app.run(host= args[0].host,debug=args[0].mode, port = args[0].port)
