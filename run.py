@@ -269,7 +269,6 @@ def run(cmd):
 def new_activity_start():
 	if request.method == 'POST':
 		data_act = request.form['data_act']
-		print(data_act)
 		comand = [args[0].interpreter,"./daemonRecord.py","start",data_act]
 		code, out, err = run(comand)
 		mensaje = {
