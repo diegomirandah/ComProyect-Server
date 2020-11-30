@@ -3,7 +3,7 @@ import logging
 from datetime import datetime
 from audio.audio_socket import AudioSocket
 from audio.vad_doa import vadDoa
-from audio.vokaturi.Emotion	import Emotion
+#from audio.vokaturi.Emotion	import Emotion
 #from audio.audio_data import audioData
 from audio.record import record
 import numpy as np
@@ -18,7 +18,7 @@ class Audio(threading.Thread):
 		self.portAudio = portAudio
 		self._running = True
 		self.vad_doa = vadDoa() # iniciar detector de voz y direccion
-		self.emotion = Emotion(16000,14400) # inciar detector de emocion
+		#self.emotion = Emotion(16000,14400) # inciar detector de emocion
 		self.file = file
 		self.R = record(self.file)
 		self.rec = False
@@ -36,19 +36,19 @@ class Audio(threading.Thread):
 		self._running = False
 		self.rec = False
 	
-	def register_emotion(self, emotion):
-		data = {
-			"idact": self.idAct,
-			"dateTime": datetime.today(),
-			"vad_doa": self.id_,
-			"Happiness": emotion.happiness,
-			"Neutral" : emotion.neutrality,
-			"Sadness" : emotion.sadness,
-			"Fear" : emotion.fear,
-			"Anger" : emotion.anger
-		}
-		if self.mode:
-			self.id_ = self.mg.insert_one("vokaturi_emotion",data)
+	# def register_emotion(self, emotion):
+	# 	data = {
+	# 		"idact": self.idAct,
+	# 		"dateTime": datetime.today(),
+	# 		"vad_doa": self.id_,
+	# 		"Happiness": emotion.happiness,
+	# 		"Neutral" : emotion.neutrality,
+	# 		"Sadness" : emotion.sadness,
+	# 		"Fear" : emotion.fear,
+	# 		"Anger" : emotion.anger
+	# 	}
+	# 	if self.mode:
+	# 		self.id_ = self.mg.insert_one("vokaturi_emotion",data)
 
 	def register_vad_doa(self,speech_count, startTime, endTime, micPos, direction, emotion = None):
 		data = {
